@@ -11,3 +11,6 @@ foreign import data Node :: *
 
 -- | General type for DOM node lists.
 foreign import data NodeList :: *
+
+-- | General type for CSS style declarations.
+foreign import data CSSStyleDeclaration :: *

@@ -32,4 +32,12 @@ data NodeList :: *
 
 General type for DOM node lists.
 
+#### `CSSStyleDeclaration`
+
+``` purescript
+data CSSStyleDeclaration :: *
+```
+
+General type for CSS style declarations.
+
 
