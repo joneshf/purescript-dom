@@ -22,4 +22,10 @@ foreign import getElementsByTagNameNS :: forall eff. Nullable String -> String -
 foreign import getElementsByClassName :: forall eff. String -> Element -> Eff (dom :: DOM | eff) HTMLCollection
 
 foreign import setAttribute :: forall eff. String -> String -> Element -> Eff (dom :: DOM | eff) String
+foreign import setAttributeNS :: forall eff. (Nullable String) -> String -> String -> Element -> Eff (dom :: DOM | eff) String
 foreign import getAttribute :: forall eff. String -> Element -> Eff (dom :: DOM | eff) (Nullable String)
+foreign import getAttributeNS :: forall eff. (Nullable String) -> String -> Element -> Eff (dom :: DOM | eff) (Nullable String)
+foreign import hasAttribute :: forall eff. String -> Element -> Eff (dom :: DOM | eff) Boolean
+foreign import hasAttributeNS :: forall eff. (Nullable String) -> String -> Element -> Eff (dom :: DOM | eff) Boolean
+foreign import removeAttribute :: forall eff. String -> Element -> Eff (dom :: DOM | eff) String
+foreign import removeAttributeNS :: forall eff. (Nullable String) -> String -> Element -> Eff (dom :: DOM | eff) String

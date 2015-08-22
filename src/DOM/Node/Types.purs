@@ -3,6 +3,7 @@ module DOM.Node.Types where
 
 import Prelude
 
+import Data.Nullable (Nullable())
 import qualified Unsafe.Coerce as U
 
 foreign import data Node :: *
@@ -73,3 +74,12 @@ foreign import data DocumentType :: *
 
 documentTypeToNode :: DocumentType -> Node
 documentTypeToNode = U.unsafeCoerce
+
+type Attr = { localName :: String
+            , value     :: String  }
+type AttrNS = { localName       :: String
+              , value           :: String
+              , legacyName      :: String
+              , namespaceURI    :: Nullable String
+              , prefix          :: Nullable String
+              , legacySpecified :: Boolean }
