@@ -81,10 +81,71 @@ exports.setAttribute = function (name) {
   };
 };
 
+exports.setAttributeNS = function (ns) {
+  return function (localName) {
+    return function (value) {
+      return function (element) {
+        return function () {
+          element.setAttribute(localName, value);
+          return {};
+        };
+      };
+    };
+  };
+};
+
 exports.getAttribute = function (name) {
   return function (element) {
     return function () {
       return element.getAttribute(name);
+    };
+  };
+};
+
+exports.getAttributeNS = function (ns) {
+  return function (localName) {
+    return function (element) {
+      return function () {
+        return element.getAttribute(localName);
+      };
+    };
+  };
+};
+
+exports.hasAttribute = function (name) {
+  return function (element) {
+    return function () {
+      return element.hasAttribute(name);
+    };
+  };
+};
+
+exports.hasAttributeNS = function (ns) {
+  return function (localName) {
+    return function (element) {
+      return function () {
+        return element.hasAttribute(localName);
+      };
+    };
+  };
+};
+
+exports.removeAttribute = function (name) {
+  return function (element) {
+    return function () {
+      element.removeAttribute(name);
+      return {};
+    };
+  };
+};
+
+exports.removeAttributeNS = function (ns) {
+  return function (name) {
+    return function (element) {
+      return function () {
+        element.removeAttribute(name);
+        return {};
+      };
     };
   };
 };
