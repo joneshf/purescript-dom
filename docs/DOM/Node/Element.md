@@ -78,4 +78,16 @@ setAttribute :: forall eff. String -> String -> Element -> Eff (dom :: DOM | eff
 getAttribute :: forall eff. String -> Element -> Eff (dom :: DOM | eff) (Nullable String)
 ```
 
+#### `innerHTML`
+
+``` purescript
+innerHTML :: forall eff. Element -> Eff (dom :: DOM | eff) String
+```
+
+#### `setInnerHTML`
+
+``` purescript
+setInnerHTML :: forall eff. String -> Element -> Eff (dom :: DOM | eff) Unit
+```
+
 

@@ -88,3 +88,18 @@ exports.getAttribute = function (name) {
     };
   };
 };
+
+exports.innerHTML = function (element) {
+  return function () {
+    return element.innerHTML;
+  };
+};
+
+exports.setInnerHTML = function (value) {
+  return function (element) {
+    return function () {
+      element.innerHTML = value;
+      return {};
+    };
+  };
+};
