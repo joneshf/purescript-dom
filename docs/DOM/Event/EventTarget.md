@@ -3,7 +3,7 @@
 #### `EventListener`
 
 ``` purescript
-data EventListener :: # ! -> *
+data EventListener :: * -> # ! -> *
 ```
 
 A boxed function that can be used as an event listener. This is necessary
@@ -12,7 +12,7 @@ due to the underling implementation of Eff functions.
 #### `eventListener`
 
 ``` purescript
-eventListener :: forall eff a. (Event -> Eff eff a) -> EventListener eff
+eventListener :: forall eff a ev. (ev -> Eff eff a) -> EventListener ev eff
 ```
 
 Creates an EventListener from a normal PureScript Eff function.
@@ -20,7 +20,7 @@ Creates an EventListener from a normal PureScript Eff function.
 #### `addEventListener`
 
 ``` purescript
-addEventListener :: forall eff. EventType -> EventListener (dom :: DOM | eff) -> Boolean -> EventTarget -> Eff (dom :: DOM | eff) Unit
+addEventListener :: forall eff ev. EventType -> EventListener ev (dom :: DOM | eff) -> Boolean -> EventTarget -> Eff (dom :: DOM | eff) Unit
 ```
 
 Adds a listener to an event target. The boolean argument indicates whether
@@ -29,7 +29,7 @@ the listener should be added for the "capture" phase.
 #### `removeEventListener`
 
 ``` purescript
-removeEventListener :: forall eff. EventType -> EventListener (dom :: DOM | eff) -> Boolean -> EventTarget -> Eff (dom :: DOM | eff) Unit
+removeEventListener :: forall eff ev. EventType -> EventListener ev (dom :: DOM | eff) -> Boolean -> EventTarget -> Eff (dom :: DOM | eff) Unit
 ```
 
 Removes a listener to an event target. The boolean argument indicates
