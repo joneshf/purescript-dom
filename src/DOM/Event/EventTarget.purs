@@ -1,12 +1,12 @@
 module DOM.Event.EventTarget where
 
-import Prelude
+import Prelude (Unit)
 
 import Control.Monad.Eff (Eff())
 import Control.Monad.Eff.Exception (EXCEPTION())
 
-import DOM
-import DOM.Event.Types
+import DOM (DOM)
+import DOM.Event.Types (EventTarget, Event, EventType)
 
 -- | A boxed function that can be used as an event listener. This is necessary
 -- | due to the underling implementation of Eff functions.

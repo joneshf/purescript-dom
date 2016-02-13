@@ -25,10 +25,10 @@ module DOM.HTML.Location
 
 import Control.Monad.Eff (Eff())
 
-import Prelude
+import Prelude (Unit)
 
-import DOM
-import DOM.HTML.Types
+import DOM (DOM)
+import DOM.HTML.Types (Location)
 
 foreign import hash :: forall eff. Location -> Eff (dom :: DOM | eff) String
 foreign import setHash :: forall eff. String -> Location -> Eff (dom :: DOM | eff) Unit

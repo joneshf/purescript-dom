@@ -152,13 +152,13 @@ module DOM.Event.Types
   , readWheelEvent
   ) where
 
-import Prelude
+import Prelude (class Ord, class Eq, compare, (==))
 
 import Data.Either (Either(..))
 import Data.Foreign (Foreign(), F(), unsafeReadTagged)
-import Data.Foreign.Class (IsForeign)
+import Data.Foreign.Class (class IsForeign)
 
-import qualified Unsafe.Coerce as U
+import Unsafe.Coerce as U
 
 -- | Basic type for all DOM events.
 foreign import data Event :: *
