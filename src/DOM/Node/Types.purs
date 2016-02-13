@@ -1,11 +1,9 @@
 -- http://www.w3.org/TR/dom
 module DOM.Node.Types where
 
-import Prelude
+import DOM.Event.Types (EventTarget)
 
-import DOM.Event.Types
-
-import qualified Unsafe.Coerce as U
+import Unsafe.Coerce as U
 
 foreign import data Node :: *
 

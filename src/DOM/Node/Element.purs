@@ -6,8 +6,8 @@ import Control.Monad.Eff (Eff())
 
 import Data.Nullable (Nullable())
 
-import DOM
-import DOM.Node.Types
+import DOM (DOM)
+import DOM.Node.Types (Element, HTMLCollection, ElementId)
 
 foreign import namespaceURI :: Element -> Nullable String
 foreign import prefix :: Element -> Nullable String

@@ -20,16 +20,16 @@ module DOM.HTML.Types
   , Location()
   ) where
 
-import Prelude
+import Prelude ((<<<))
 
 import Data.Either (Either(..))
 import Data.Foreign (Foreign(), F(), ForeignError(..), unsafeReadTagged)
-import Data.Foreign.Class (IsForeign)
+import Data.Foreign.Class (class IsForeign)
 
-import DOM.Event.Types
-import DOM.Node.Types
+import DOM.Event.Types (EventTarget)
+import DOM.Node.Types (Node, NonDocumentTypeChildNode, ParentNode, Element, NonElementParentNode, Document)
 
-import qualified Unsafe.Coerce as U
+import Unsafe.Coerce as U
 
 foreign import data Window :: *
 

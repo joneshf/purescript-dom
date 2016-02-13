@@ -4,8 +4,8 @@ import Control.Monad.Eff (Eff())
 
 import Data.Nullable (Nullable())
 
-import DOM
-import DOM.Node.Types
+import DOM (DOM)
+import DOM.Node.Types (Node, Document, ProcessingInstruction, Comment, Text, DocumentFragment, Element, HTMLCollection, DocumentType)
 
 foreign import url :: forall eff. Document -> Eff (dom :: DOM | eff) String
 foreign import documentURI :: forall eff. Document -> Eff (dom :: DOM | eff) String

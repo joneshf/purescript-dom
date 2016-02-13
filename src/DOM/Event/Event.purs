@@ -13,17 +13,17 @@ module DOM.Event.Event
   , stopPropagation
   ) where
 
-import Prelude
+import Prelude (Unit, (<<<))
 
 import Control.Monad.Eff (Eff())
 
 import Data.Enum (toEnum)
-import qualified Data.Maybe.Unsafe as U
+import Data.Maybe.Unsafe as U
 
-import DOM
-import DOM.Event.EventPhase
-import DOM.Event.Types
-import DOM.Node.Types
+import DOM (DOM)
+import DOM.Event.EventPhase (EventPhase)
+import DOM.Event.Types (Event, EventType)
+import DOM.Node.Types (Node)
 
 -- | The event type.
 foreign import type_ :: Event -> EventType
