@@ -28,7 +28,7 @@ exports.contains = function(token) {
 exports.add = function(tokens) {
   return function (list) {
     return function () {
-      return list.add.apply(tokens);
+      return list.add.apply(list, tokens);
     }
   }
 }
@@ -36,7 +36,7 @@ exports.add = function(tokens) {
 exports.remove = function(tokens) {
   return function (list) {
     return function () {
-      return list.remove.apply(tokens);
+      return list.remove.apply(list, tokens);
     }
   }
 }
