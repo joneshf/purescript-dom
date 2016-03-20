@@ -88,3 +88,9 @@ exports.getAttribute = function (name) {
     };
   };
 };
+
+exports.classList = function (element) {
+  return function () {
+    return element.classList;
+  };
+};

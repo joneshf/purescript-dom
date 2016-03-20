@@ -25,3 +25,6 @@ foreign import getElementsByClassName :: forall eff. String -> Element -> Eff (d
 
 foreign import setAttribute :: forall eff. String -> String -> Element -> Eff (dom :: DOM | eff) Unit
 foreign import getAttribute :: forall eff. String -> Element -> Eff (dom :: DOM | eff) (Nullable String)
+
+-- | A (mutatable) DOMTokenList representing the classes of the element.
+foreign import classList :: forall eff. Element -> Eff (dom :: DOM | eff) DOMTokenList
