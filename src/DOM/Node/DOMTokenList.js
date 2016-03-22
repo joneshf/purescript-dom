@@ -49,16 +49,6 @@ exports.toggle = function(token) {
   }
 }
 
-exports.toggleForce = function(token) {
-  return function (force) {
-    return function (list) {
-      return function () {
-        return list.toggle(token, force);
-      }
-    }
-  }
-}
-
 exports.replace = function(token) {
   return function (newToken) {
     return function (list) {
