@@ -5,7 +5,6 @@ module DOM.HTML.Event.DragEvent.DataTransfer
 
 import DOM.File.Types (FileList)
 import Data.Maybe (Maybe(Just, Nothing))
-import Data.Function.Uncurried (Fn3, runFn3)
 
 foreign import data DataTransfer :: *
 
@@ -15,6 +14,9 @@ foreign import data DataTransfer :: *
 -- | It's possible that a drag operation may be null on some browsers. In
 -- | these cases Nothing is returned.
 files :: DataTransfer -> Maybe FileList
-files = runFn3 filesImpl Just Nothing
+files = filesImpl Just Nothing
 
-foreign import filesImpl :: Fn3 (FileList -> Maybe FileList) (Maybe FileList) DataTransfer (Maybe FileList)
+foreign import filesImpl :: (FileList -> Maybe FileList)
+			 -> Maybe FileList
+			 -> DataTransfer
+                         -> Maybe FileList
