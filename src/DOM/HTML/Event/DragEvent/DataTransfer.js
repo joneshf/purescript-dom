@@ -1,5 +1,10 @@
 "use strict";
 
-exports.files = function (dataTransfer) {
-  return dataTransfer.files;
+exports.filesImpl = function(just, nothing, dataTransfer) {
+  if (dataTransfer.files) {
+    return just(dataTransfer.files);
+  }
+  else {
+    return nothing;
+  }
 };
