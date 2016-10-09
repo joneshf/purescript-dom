@@ -30,5 +30,11 @@
     "purescript-nullable": "^1.0.0",
     "purescript-prelude": "^1.0.0",
     "purescript-unsafe-coerce": "^1.0.0"
+  },
+  "devDependencies": {
+    "purescript-aff": "^1.1.0",
+    "purescript-test-unit": "^9.1.0",
+    "purescript-exitcodes": "^1.0.0",
+    "purescript-phantom": "^0.1.2"
   }
 }

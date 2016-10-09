@@ -3,6 +3,10 @@ module DOM.HTML.Types
   ( Navigator
   , Location
   , Window
+  , ALERT
+  , PROMPT
+  , CONFIRM
+  , WINDOW
   , windowToEventTarget
   , HTMLDocument
   , htmlDocumentToDocument
@@ -221,6 +225,14 @@ foreign import data Navigator :: *
 foreign import data Location :: *
 
 foreign import data Window :: *
+
+foreign import data ALERT :: !
+
+foreign import data PROMPT :: !
+
+foreign import data CONFIRM :: !
+
+foreign import data WINDOW :: !
 
 windowToEventTarget :: Window -> EventTarget
 windowToEventTarget = U.unsafeCoerce
