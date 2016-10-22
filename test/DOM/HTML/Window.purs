@@ -1,6 +1,6 @@
 module Test.DOM.HTML.Window where
 
-import Prelude (Unit, bind, ($), (<$>), (<*>), (<<<))
+import Prelude (Unit, bind, ($), (<<<))
 import DOM (DOM)
 import DOM.HTML (window)
 import DOM.HTML.Types (WINDOW)
