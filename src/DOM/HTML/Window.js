@@ -30,8 +30,8 @@ exports.innerHeight = function (window) {
   };
 };
 
-exports.alert = function (window) {
-  return function (str) {
+exports.alert = function (str) {
+  return function (window) {
     return function () {
       window.alert(str);
       return {};
@@ -39,17 +39,17 @@ exports.alert = function (window) {
   };
 };
 
-exports.confirm = function (window) {
-  return function (str) {
+exports.confirm = function (str) {
+  return function (window) {
     return function () {
       return window.confirm(str);
     };
   };
 };
 
-exports.moveBy = function (window) {
-  return function (xDelta) {
-    return function (yDelta) {
+exports.moveBy = function (xDelta) {
+  return function (yDelta) {
+    return function (window) {
       return function () {
         window.moveBy(xDelta, yDelta);
         return {};
@@ -58,9 +58,9 @@ exports.moveBy = function (window) {
   };
 };
 
-exports.moveTo = function (window) {
-  return function (width) {
-    return function (height) {
+exports.moveTo = function (width) {
+  return function (height) {
+    return function (window) {
       return function () {
         window.moveTo(width, height);
         return {};
@@ -69,10 +69,10 @@ exports.moveTo = function (window) {
   };
 };
 
-exports._open = function (window) {
-  return function (url) {
-    return function (name) {
-      return function (features) {
+exports._open = function (url) {
+  return function (name) {
+    return function (features) {
+      return function (window) {
         return function () {
           return window.open(url, name, features);
         };
@@ -100,17 +100,17 @@ exports.print = function (window) {
   };
 };
 
-exports._prompt = function (window) {
-  return function (str) {
+exports._prompt = function (str) {
+  return function (window) {
     return function () {
       return window.prompt(str);
     };
   };
 };
 
-exports.resizeBy = function (window) {
-  return function (xDelta) {
-    return function (yDelta) {
+exports.resizeBy = function (xDelta) {
+  return function (yDelta) {
+    return function (window) {
       return function () {
         window.resizeBy(xDelta, yDelta);
         return {};
@@ -119,9 +119,9 @@ exports.resizeBy = function (window) {
   };
 };
 
-exports.resizeTo = function (window) {
-  return function (width) {
-    return function (height) {
+exports.resizeTo = function (width) {
+  return function (height) {
+    return function (window) {
       return function () {
         window.resizeTo(width, height);
         return {};
@@ -142,9 +142,9 @@ exports.screenY = function (window) {
   };
 };
 
-exports.scroll = function (window) {
-  return function (xCoord) {
-    return function (yCoord) {
+exports.scroll = function (xCoord) {
+  return function (yCoord) {
+    return function (window) {
       return function () {
         window.scroll(xCoord, yCoord);
         return {};
@@ -153,9 +153,9 @@ exports.scroll = function (window) {
   };
 };
 
-exports.scrollBy = function (window) {
-  return function (xCoord) {
-    return function (yCoord) {
+exports.scrollBy = function (xCoord) {
+  return function (yCoord) {
+    return function (window) {
       return function () {
         window.scrollBy(xCoord, yCoord);
         return {};

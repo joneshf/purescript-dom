@@ -57,5 +57,5 @@ domHtmlWindowTests = do
     it "should open a new window" do
       newWindow' <- liftEff do
         window' <- window
-        open window' "about:blank" "foobar" ""
+        open "about:blank" "foobar" "" window'
       isJust newWindow' `shouldEqual` true
