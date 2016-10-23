@@ -24,7 +24,7 @@ module DOM.HTML.Window
   ) where
 
 import Prelude (Unit, (<$>))
-import Data.Maybe (Maybe(..))
+import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
