@@ -5,11 +5,7 @@ module DOM.HTML.Window
   , innerWidth
   , innerHeight
   , alert
-  , close
-  , closed
   , confirm
-  , length
-  , minimize
   , moveBy
   , moveTo
   , open
@@ -27,8 +23,9 @@ module DOM.HTML.Window
   , scrollY
   ) where
 
-import Prelude (Unit)
+import Prelude (Unit, (<$>))
 import Data.Maybe (Maybe(..))
+import Data.Nullable (Nullable, toMaybe)
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
 import DOM.HTML.Types (Window, Location, Navigator, HTMLDocument, ALERT, CONFIRM, PROMPT, WINDOW)
@@ -45,38 +42,22 @@ foreign import innerHeight :: forall eff. Window -> Eff (dom :: DOM | eff) Int
 
 foreign import alert :: forall eff. Window -> String -> Eff (alert :: ALERT | eff) Unit
 
-foreign import close :: forall eff. Window -> Eff (window :: WINDOW | eff) Unit
-
-foreign import closed :: forall eff. Window -> Eff (window :: WINDOW | eff) Boolean
-
 foreign import confirm :: forall eff. Window -> String -> Eff (confirm :: CONFIRM | eff) Boolean
-
-foreign import length :: forall eff. Window -> Eff (window :: WINDOW | eff) Int
-
-foreign import minimize :: forall eff. Window -> Eff (window :: WINDOW | eff) Unit
 
 foreign import moveBy :: forall eff. Window -> Int -> Int -> Eff (window :: WINDOW | eff) Unit
 
 foreign import moveTo :: forall eff. Window -> Int -> Int -> Eff (window :: WINDOW | eff) Unit
 
-open
+open :: forall eff. Window -> String -> String -> String -> Eff (window :: WINDOW | eff) (Maybe Window)
+open window url name features = toMaybe <$> _open window url name features
+
+foreign import _open
   :: forall eff
    . Window
   -> String
   -> String
   -> String
-  -> Eff (window :: WINDOW | eff) (Maybe Window)
-open = _open Just Nothing
-
-foreign import _open
-  :: forall eff
-   . (forall a. a -> Maybe a)
-  -> (forall a. Maybe a)
-  -> Window
-  -> String
-  -> String
-  -> String
-  -> Eff (window :: WINDOW | eff) (Maybe Window)
+  -> Eff (window :: WINDOW | eff) (Nullable Window)
 
 foreign import outerHeight :: forall eff. Window -> Eff (dom :: DOM | eff) Int
 
@@ -85,15 +66,9 @@ foreign import outerWidth :: forall eff. Window -> Eff (dom :: DOM | eff) Int
 foreign import print :: forall eff. Window -> Eff (window :: WINDOW | eff) Unit
 
 prompt :: forall eff. Window -> String -> Eff (prompt :: PROMPT | eff) (Maybe String)
-prompt = _prompt Just Nothing
+prompt window msg = toMaybe <$> _prompt window msg
 
-foreign import _prompt
-  :: forall eff
-   . (forall a. a -> Maybe a)
-  -> (forall a. Maybe a)
-  -> Window
-  -> String
-  -> Eff (prompt :: PROMPT | eff) (Maybe String)
+foreign import _prompt :: forall eff. Window -> String -> Eff (prompt :: PROMPT | eff) (Nullable String)
 
 foreign import resizeBy :: forall eff. Window -> Int -> Int -> Eff (window :: WINDOW | eff) Unit
 

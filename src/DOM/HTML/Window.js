@@ -39,37 +39,11 @@ exports.alert = function (window) {
   };
 };
 
-exports.close = function (window) {
-  return function () {
-    window.close();
-    return {};
-  };
-};
-
-exports.closed = function (window) {
-  return function () {
-    return window.closed;
-  };
-};
-
 exports.confirm = function (window) {
   return function (str) {
     return function () {
       return window.confirm(str);
     };
-  };
-};
-
-exports.length = function (window) {
-  return function () {
-    return window.length;
-  };
-};
-
-exports.minimize = function (window) {
-  return function () {
-    window.minimize();
-    return {};
   };
 };
 
@@ -95,17 +69,12 @@ exports.moveTo = function (window) {
   };
 };
 
-exports._open = function (just) {
-  return function (nothing) {
-    return function (window) {
-      return function (url) {
-        return function (name) {
-          return function (features) {
-            return function () {
-              var windowRef = window.open(url, name, features);
-              return windowRef !== null ? just(windowRef) : nothing();
-            };
-          };
+exports._open = function (window) {
+  return function (url) {
+    return function (name) {
+      return function (features) {
+        return function () {
+          return window.open(url, name, features);
         };
       };
     };
@@ -131,15 +100,10 @@ exports.print = function (window) {
   };
 };
 
-exports._prompt = function (just) {
-  return function (nothing) {
-    return function (window) {
-      return function (str) {
-        return function () {
-          var response = window.prompt(str);
-          return response !== null ? just(response) : nothing();
-        };
-      };
+exports._prompt = function (window) {
+  return function (str) {
+    return function () {
+      return window.prompt(str);
     };
   };
 };

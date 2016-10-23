@@ -1,6 +1,6 @@
 module Test.DOM.HTML.Window where
 
-import Prelude (Unit, bind, ($), (<<<))
+import Prelude (Unit, bind, (<<<))
 import DOM (DOM)
 import DOM.HTML (window)
 import DOM.HTML.Types (WINDOW)
@@ -12,9 +12,8 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Class (liftEff) as EffClass
 import Test.Unit (TestF, describe, it)
 import Test.Unit.Assert (shouldEqual)
-import Data.Maybe (isJust, fromJust)
+import Data.Maybe (isJust)
 import Data.Traversable (class Traversable, sequence)
-import Partial.Unsafe (unsafePartial)
 
 
 liftEff :: forall eff a. Eff eff a -> Aff eff a
@@ -54,39 +53,9 @@ domHtmlWindowTests = do
         screenY window'
       y `shouldEqual` 0
 
-  describe "closed" do
-    it "should return whether or not the window is closed" do
-      isClosed <- liftEff do
-        window' <- window
-        closed window'
-      isClosed `shouldEqual` false
-
   describe "open" do
     it "should open a new window" do
       newWindow' <- liftEff do
         window' <- window
         open window' "about:blank" "foobar" ""
       isJust newWindow' `shouldEqual` true
-
-  describe "close" do
-    it "should close the window" do
-      newWindow' <- liftEff do
-        window' <- window
-        open window' "about:blank" "foobar" ""
-      isJust newWindow' `shouldEqual` true
-      let newWindow = unsafePartial $ fromJust newWindow'
-
-      isClosed <- liftEff $ closed newWindow
-      isClosed `shouldEqual` false
-
-      liftEff $ close newWindow
-
-      isClosed' <- liftEff $ closed newWindow
-      isClosed' `shouldEqual` false
-
-  describe "length" do
-    it "should return the default number of frames in the window" do
-      numFrames <- liftEff do
-        window' <- window
-        length window'
-      numFrames `shouldEqual` 0
