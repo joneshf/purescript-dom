@@ -187,3 +187,9 @@ exports.url = function (window) {
     return window.URL;
   };
 };
+
+exports.getSelection = function (window) {
+  return function () {
+    return window.getSelection();
+  };
+}

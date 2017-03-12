@@ -27,7 +27,7 @@ module DOM.HTML.Window
 
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
-import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, WINDOW, Window, URL)
+import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, SELECTION, Selection, URL, WINDOW, Window)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Prelude (Unit, (<$>))
@@ -91,3 +91,5 @@ foreign import scrollBy :: forall eff. Int -> Int -> Window -> Eff (window :: WI
 foreign import scrollX :: forall eff. Window -> Eff (dom :: DOM | eff) Int
 
 foreign import scrollY :: forall eff. Window -> Eff (dom :: DOM | eff) Int
+
+foreign import getSelection :: forall eff. Window -> Eff (selection :: SELECTION | eff) Selection

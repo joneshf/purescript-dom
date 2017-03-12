@@ -3,12 +3,15 @@ module DOM.HTML.Types
   ( Navigator
   , Location
   , History
+  , Range
+  , Selection
   , URL
   , Window
   , ALERT
   , CONFIRM
   , HISTORY
   , PROMPT
+  , SELECTION
   , WINDOW
   , windowToEventTarget
   , HTMLDocument
@@ -232,6 +235,10 @@ foreign import data Window :: *
 
 foreign import data History :: *
 
+foreign import data Range :: *
+
+foreign import data Selection :: *
+
 foreign import data URL :: *
 
 foreign import data ALERT :: !
@@ -241,6 +248,8 @@ foreign import data HISTORY :: !
 foreign import data PROMPT :: !
 
 foreign import data CONFIRM :: !
+
+foreign import data SELECTION :: !
 
 foreign import data WINDOW :: !
 
