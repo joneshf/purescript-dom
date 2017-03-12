@@ -192,4 +192,4 @@ exports.getSelection = function (window) {
   return function () {
     return window.getSelection();
   };
-}
+};
