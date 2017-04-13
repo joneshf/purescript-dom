@@ -201,3 +201,17 @@ exports.sessionStorage = function (window) {
     return window.sessionStorage;
   };
 };
+
+exports._requestAnimationFrame = function(fn) {
+  return function(window) {
+    return function() {
+      return window.requestAnimationFrame(fn);
+    };
+  };
+};
+
+exports._cancelAnimationFrame = function(id) {
+  return function(window) {
+    return window.cancelAnimationFrame(id);
+  };
+};
