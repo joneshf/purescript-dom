@@ -131,7 +131,7 @@ derive instance newtypeRequestIdleCallbackId :: Newtype RequestIdleCallbackId _
 foreign import _requestIdleCallback :: forall eff. Eff (dom :: DOM | eff) Unit -> { timeout :: Int } -> Window -> Eff (dom :: DOM | eff) Int 
 
 requestIdleCallback :: forall eff. Eff (dom :: DOM | eff) Unit -> { timeout :: Int } -> Window -> Eff (dom :: DOM | eff ) RequestIdleCallbackId
-requestIdleCallback fn = map RequestIdleCallbackId <<< _requestIdleCallback fn
+requestIdleCallback fn opts = map RequestIdleCallbackId <<< _requestIdleCallback fn opts
 
 foreign import _cancelIdleCallback :: forall eff. Int -> Window -> Eff (dom :: DOM | eff) Unit
 
