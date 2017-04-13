@@ -215,3 +215,19 @@ exports._cancelAnimationFrame = function(id) {
     return window.cancelAnimationFrame(id);
   };
 };
+
+exports._requestIdleCallback = function(fn) {
+  return function(opts) {
+    return function(window) {
+      return function() {
+        return window.requestIdleCallback(fn, opts);
+      };
+    };
+  };
+};
+
+exports._cancelIdleCallback = function(id) {
+  return function(window) {
+    return window.cancelIdleCallback(id);
+  };
+};

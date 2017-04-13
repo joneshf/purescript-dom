@@ -29,6 +29,9 @@ module DOM.HTML.Window
   , requestAnimationFrame
   , cancelAnimationFrame
   , RequestAnimationFrameId
+  , requestIdleCallback
+  , cancelIdleCallback
+  , RequestIdleCallbackId
   ) where
 
 import Control.Monad.Eff (Eff)
@@ -120,3 +123,17 @@ foreign import _cancelAnimationFrame :: forall eff. Int -> Window -> Eff (dom ::
 
 cancelAnimationFrame :: forall eff. RequestAnimationFrameId -> Window -> Eff (dom :: DOM | eff) Unit
 cancelAnimationFrame idAF = _cancelAnimationFrame (unwrap idAF)
+
+newtype RequestIdleCallbackId = RequestIdleCallbackId Int
+
+derive instance newtypeRequestIdleCallbackId :: Newtype RequestIdleCallbackId _
+
+foreign import _requestIdleCallback :: forall eff. Eff (dom :: DOM | eff) Unit -> { timeout :: Int } -> Window -> Eff (dom :: DOM | eff) Int 
+
+requestIdleCallback :: forall eff. Eff (dom :: DOM | eff) Unit -> { timeout :: Int } -> Window -> Eff (dom :: DOM | eff ) RequestIdleCallbackId
+requestIdleCallback fn = map RequestIdleCallbackId <<< _requestIdleCallback fn
+
+foreign import _cancelIdleCallback :: forall eff. Int -> Window -> Eff (dom :: DOM | eff) Unit
+
+cancelIdleCallback :: forall eff. RequestIdleCallbackId -> Window -> Eff (dom :: DOM | eff) Unit
+cancelIdleCallback idAF = _cancelIdleCallback (unwrap idAF)
