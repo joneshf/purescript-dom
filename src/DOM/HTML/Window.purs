@@ -41,7 +41,7 @@ import DOM.WebStorage.Types (Storage)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Data.Newtype (class Newtype, unwrap)
-import Prelude (Unit, (<$>), (<<<), map)
+import Prelude (class Eq, class Ord, Unit, (<$>), (<<<), map)
 
 foreign import document :: forall eff. Window -> Eff (dom :: DOM | eff) HTMLDocument
 
@@ -113,6 +113,8 @@ foreign import sessionStorage :: forall eff. Window -> Eff (dom :: DOM | eff) St
 newtype RequestAnimationFrameId = RequestAnimationFrameId Int
 
 derive instance newtypeRequestAnimationFrameId :: Newtype RequestAnimationFrameId _
+derive instance eqRequestAnimationFrameId :: Eq RequestAnimationFrameId
+derive instance ordRequestAnimationFrameId :: Ord RequestAnimationFrameId
 
 foreign import _requestAnimationFrame :: forall eff. Eff (dom :: DOM | eff) Unit -> Window -> Eff (dom :: DOM | eff) Int
 
@@ -127,11 +129,15 @@ cancelAnimationFrame idAF = _cancelAnimationFrame (unwrap idAF)
 newtype RequestIdleCallbackId = RequestIdleCallbackId Int
 
 derive instance newtypeRequestIdleCallbackId :: Newtype RequestIdleCallbackId _
+derive instance eqRequestIdleCallbackId :: Eq RequestIdleCallbackId
+derive instance ordRequestIdleCallbackId :: Ord RequestIdleCallbackId
 
-foreign import _requestIdleCallback :: forall eff. Eff (dom :: DOM | eff) Unit -> { timeout :: Int } -> Window -> Eff (dom :: DOM | eff) Int 
+foreign import _requestIdleCallback :: forall eff. { timeout :: Int } -> Eff (dom :: DOM | eff) Unit -> Window -> Eff (dom :: DOM | eff) Int 
 
-requestIdleCallback :: forall eff. Eff (dom :: DOM | eff) Unit -> { timeout :: Int } -> Window -> Eff (dom :: DOM | eff ) RequestIdleCallbackId
-requestIdleCallback fn opts = map RequestIdleCallbackId <<< _requestIdleCallback fn opts
+-- | Set timeout to `0` to get the same behaviour as when it is `undefined` in
+-- | [JavaScript](https://w3c.github.io/requestidlecallback/#h-the-requestidle-callback-method).
+requestIdleCallback :: forall eff. { timeout :: Int } -> Eff (dom :: DOM | eff) Unit -> Window -> Eff (dom :: DOM | eff ) RequestIdleCallbackId
+requestIdleCallback opts fn = map RequestIdleCallbackId <<< _requestIdleCallback opts fn
 
 foreign import _cancelIdleCallback :: forall eff. Int -> Window -> Eff (dom :: DOM | eff) Unit
 
