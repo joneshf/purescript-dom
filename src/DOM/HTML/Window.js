@@ -212,12 +212,14 @@ exports._requestAnimationFrame = function(fn) {
 
 exports._cancelAnimationFrame = function(id) {
   return function(window) {
-    return window.cancelAnimationFrame(id);
+    return function() {
+      return window.cancelAnimationFrame(id);
+    };
   };
 };
 
-exports._requestIdleCallback = function(fn) {
-  return function(opts) {
+exports._requestIdleCallback = function(opts) {
+  return function(fn) {
     return function(window) {
       return function() {
         return window.requestIdleCallback(fn, opts);
@@ -228,6 +230,8 @@ exports._requestIdleCallback = function(fn) {
 
 exports._cancelIdleCallback = function(id) {
   return function(window) {
-    return window.cancelIdleCallback(id);
+    return function() {
+      return window.cancelIdleCallback(id);
+    };
   };
 };
