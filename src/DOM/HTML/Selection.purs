@@ -15,6 +15,7 @@ import DOM (DOM)
 import DOM.HTML.Types (Range, SELECTION, Selection)
 import DOM.Node.Types (Node)
 import Data.Maybe (Maybe(..), fromJust)
+import Partial.Unsafe (unsafePartial)
 
 foreign import anchorNode
   :: forall eff
@@ -53,10 +54,9 @@ foreign import typeImpl
 
 type_
   :: forall eff
-   . Partial
-  => Selection
+   . Selection
   -> Eff (selection :: SELECTION | eff) SelectionType
-type_ = typeImpl >=> pure <<< fromJust <<< toSelectionType
+type_ = unsafePartial $ typeImpl >=> pure <<< fromJust <<< toSelectionType
 
 data SelectionType
   = None
