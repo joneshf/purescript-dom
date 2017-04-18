@@ -33,17 +33,19 @@ module DOM.Event.Types
   , ProgressEvent
   , progressEventToEvent
   , readProgressEvent
+  , ClipboardEvent
+  , clipboardEventToEvent
+  , readClipboardEvent
   ) where
 
 import Prelude
 import Data.Either (Either(..))
 import Data.Foreign (F, Foreign, unsafeReadTagged)
-import Data.Foreign.Class (class IsForeign)
 import Data.Newtype (class Newtype)
 import Unsafe.Coerce as U
 
 -- | Basic type for all DOM events.
-foreign import data Event :: *
+foreign import data Event :: Type
 
 -- | The type of strings used for event types.
 newtype EventType = EventType String
@@ -53,7 +55,7 @@ derive newtype instance eqEventType :: Eq EventType
 derive newtype instance ordEventType :: Ord EventType
 
 -- | A DOM item that can emit events.
-foreign import data EventTarget :: *
+foreign import data EventTarget :: Type
 
 readEventTarget :: Foreign -> F EventTarget
 readEventTarget = _readEventTarget Left Right
@@ -64,10 +66,7 @@ foreign import _readEventTarget
   -> Foreign
   -> F EventTarget
 
-instance isForeignEventTarget :: IsForeign EventTarget where
-  read = readEventTarget
-
-foreign import data CustomEvent :: *
+foreign import data CustomEvent :: Type
 
 customEventToEvent :: CustomEvent -> Event
 customEventToEvent = U.unsafeCoerce
@@ -75,10 +74,7 @@ customEventToEvent = U.unsafeCoerce
 readCustomEvent :: Foreign -> F CustomEvent
 readCustomEvent = unsafeReadTagged "CustomEvent"
 
-instance isForeignCustomEvent :: IsForeign CustomEvent where
-  read = readCustomEvent
-
-foreign import data UIEvent :: *
+foreign import data UIEvent :: Type
 
 uiEventToEvent :: UIEvent -> Event
 uiEventToEvent = U.unsafeCoerce
@@ -86,10 +82,7 @@ uiEventToEvent = U.unsafeCoerce
 readUIEvent :: Foreign -> F UIEvent
 readUIEvent = unsafeReadTagged "UIEvent"
 
-instance isForeignUIEvent :: IsForeign UIEvent where
-  read = readUIEvent
-
-foreign import data FocusEvent :: *
+foreign import data FocusEvent :: Type
 
 focusEventToEvent :: FocusEvent -> Event
 focusEventToEvent = U.unsafeCoerce
@@ -97,10 +90,7 @@ focusEventToEvent = U.unsafeCoerce
 readFocusEvent :: Foreign -> F FocusEvent
 readFocusEvent = unsafeReadTagged "FocusEvent"
 
-instance isForeignFocusEvent :: IsForeign FocusEvent where
-  read = readFocusEvent
-
-foreign import data MouseEvent :: *
+foreign import data MouseEvent :: Type
 
 mouseEventToEvent :: MouseEvent -> Event
 mouseEventToEvent = U.unsafeCoerce
@@ -108,10 +98,7 @@ mouseEventToEvent = U.unsafeCoerce
 readMouseEvent :: Foreign -> F MouseEvent
 readMouseEvent = unsafeReadTagged "MouseEvent"
 
-instance isForeignMouseEvent :: IsForeign MouseEvent where
-  read = readMouseEvent
-
-foreign import data WheelEvent :: *
+foreign import data WheelEvent :: Type
 
 wheelEventToEvent :: WheelEvent -> Event
 wheelEventToEvent = U.unsafeCoerce
@@ -119,10 +106,7 @@ wheelEventToEvent = U.unsafeCoerce
 readWheelEvent :: Foreign -> F WheelEvent
 readWheelEvent = unsafeReadTagged "WheelEvent"
 
-instance isForeignWheelEvent :: IsForeign WheelEvent where
-  read = readWheelEvent
-
-foreign import data TouchEvent :: *
+foreign import data TouchEvent :: Type
 
 touchEventToEvent :: TouchEvent -> Event
 touchEventToEvent = U.unsafeCoerce
@@ -130,10 +114,7 @@ touchEventToEvent = U.unsafeCoerce
 readTouchEvent :: Foreign -> F TouchEvent
 readTouchEvent = unsafeReadTagged "TouchEvent"
 
-instance isForeignTouchEvent :: IsForeign TouchEvent where
-  read = readTouchEvent
-
-foreign import data InputEvent :: *
+foreign import data InputEvent :: Type
 
 inputEventToEvent :: InputEvent -> Event
 inputEventToEvent = U.unsafeCoerce
@@ -141,10 +122,7 @@ inputEventToEvent = U.unsafeCoerce
 readInputEvent :: Foreign -> F InputEvent
 readInputEvent = unsafeReadTagged "InputEvent"
 
-instance isForeignInputEvent :: IsForeign InputEvent where
-  read = readInputEvent
-
-foreign import data KeyboardEvent :: *
+foreign import data KeyboardEvent :: Type
 
 keyboardEventToEvent :: KeyboardEvent -> Event
 keyboardEventToEvent = U.unsafeCoerce
@@ -152,10 +130,7 @@ keyboardEventToEvent = U.unsafeCoerce
 readKeyboardEvent :: Foreign -> F KeyboardEvent
 readKeyboardEvent = unsafeReadTagged "KeyboardEvent"
 
-instance isForeignKeyboardEvent :: IsForeign KeyboardEvent where
-  read = readKeyboardEvent
-
-foreign import data CompositionEvent :: *
+foreign import data CompositionEvent :: Type
 
 compositionEventToEvent :: CompositionEvent -> Event
 compositionEventToEvent = U.unsafeCoerce
@@ -163,10 +138,7 @@ compositionEventToEvent = U.unsafeCoerce
 readCompositionEvent :: Foreign -> F CompositionEvent
 readCompositionEvent = unsafeReadTagged "CompositionEvent"
 
-instance isForeignCompositionEvent :: IsForeign CompositionEvent where
-  read = readCompositionEvent
-
-foreign import data ProgressEvent :: *
+foreign import data ProgressEvent :: Type
 
 progressEventToEvent :: ProgressEvent -> Event
 progressEventToEvent = U.unsafeCoerce
@@ -174,5 +146,10 @@ progressEventToEvent = U.unsafeCoerce
 readProgressEvent :: Foreign -> F ProgressEvent
 readProgressEvent = unsafeReadTagged "ProgressEvent"
 
-instance isForeignProgressEvent :: IsForeign ProgressEvent where
-  read = readProgressEvent
+foreign import data ClipboardEvent :: Type
+
+clipboardEventToEvent :: ClipboardEvent -> Event
+clipboardEventToEvent = U.unsafeCoerce
+
+readClipboardEvent :: Foreign -> F ClipboardEvent
+readClipboardEvent = unsafeReadTagged "ClipboardEvent"

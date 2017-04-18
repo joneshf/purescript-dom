@@ -14,6 +14,7 @@ module DOM.HTML.Window
   , outerWidth
   , print
   , prompt
+  , promptDefault
   , resizeBy
   , resizeTo
   , screenX
@@ -23,11 +24,14 @@ module DOM.HTML.Window
   , scrollX
   , scrollY
   , url
+  , localStorage
+  , sessionStorage
   ) where
 
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
-import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, SELECTION, Selection, URL, WINDOW, Window)
+import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, SELECTION, Selection, WINDOW, Window, URL)
+import DOM.WebStorage.Types (Storage)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Prelude (Unit, (<$>))
@@ -72,9 +76,12 @@ foreign import outerWidth :: forall eff. Window -> Eff (dom :: DOM | eff) Int
 foreign import print :: forall eff. Window -> Eff (window :: WINDOW | eff) Unit
 
 prompt :: forall eff. String -> Window -> Eff (prompt :: PROMPT | eff) (Maybe String)
-prompt window msg = toMaybe <$> _prompt window msg
+prompt msg window = toMaybe <$> _prompt msg "" window
 
-foreign import _prompt :: forall eff. String -> Window -> Eff (prompt :: PROMPT | eff) (Nullable String)
+promptDefault :: forall eff. String -> String -> Window -> Eff (prompt :: PROMPT | eff) (Maybe String)
+promptDefault msg defaultText window = toMaybe <$> _prompt msg defaultText window
+
+foreign import _prompt :: forall eff. String -> String -> Window -> Eff (prompt :: PROMPT | eff) (Nullable String)
 
 foreign import resizeBy :: forall eff. Int -> Int -> Window -> Eff (window :: WINDOW | eff) Unit
 
@@ -91,5 +98,9 @@ foreign import scrollBy :: forall eff. Int -> Int -> Window -> Eff (window :: WI
 foreign import scrollX :: forall eff. Window -> Eff (dom :: DOM | eff) Int
 
 foreign import scrollY :: forall eff. Window -> Eff (dom :: DOM | eff) Int
+
+foreign import localStorage :: forall eff. Window -> Eff (dom :: DOM | eff) Storage
+
+foreign import sessionStorage :: forall eff. Window -> Eff (dom :: DOM | eff) Storage
 
 foreign import getSelection :: forall eff. Window -> Eff (selection :: SELECTION | eff) Selection

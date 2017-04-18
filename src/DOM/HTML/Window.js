@@ -107,9 +107,11 @@ exports.print = function (window) {
 };
 
 exports._prompt = function (str) {
-  return function (window) {
-    return function () {
-      return window.prompt(str);
+  return function (defaultText) {
+    return function (window) {
+      return function () {
+        return window.prompt(str, defaultText);
+      };
     };
   };
 };
@@ -185,6 +187,18 @@ exports.scrollY = function (window) {
 exports.url = function (window) {
   return function () {
     return window.URL;
+  };
+};
+
+exports.localStorage = function (window) {
+  return function () {
+    return window.localStorage;
+  };
+};
+
+exports.sessionStorage = function (window) {
+  return function () {
+    return window.sessionStorage;
   };
 };
 
