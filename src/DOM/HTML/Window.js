@@ -202,6 +202,40 @@ exports.sessionStorage = function (window) {
   };
 };
 
+exports._requestAnimationFrame = function(fn) {
+  return function(window) {
+    return function() {
+      return window.requestAnimationFrame(fn);
+    };
+  };
+};
+
+exports._cancelAnimationFrame = function(id) {
+  return function(window) {
+    return function() {
+      return window.cancelAnimationFrame(id);
+    };
+  };
+};
+
+exports._requestIdleCallback = function(opts) {
+  return function(fn) {
+    return function(window) {
+      return function() {
+        return window.requestIdleCallback(fn, opts);
+      };
+    };
+  };
+};
+
+exports._cancelIdleCallback = function(id) {
+  return function(window) {
+    return function() {
+      return window.cancelIdleCallback(id);
+    };
+  };
+};
+
 exports.getSelection = function (window) {
   return function () {
     return window.getSelection();
