@@ -5,8 +5,10 @@ module DOM.Node.HTMLCollection
   ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Data.Maybe (Maybe)
+import Control.Monad.Eff (Eff, forE)
+import Control.Monad.ST (ST)
+import Data.Array.ST (emptySTArray, pushSTArray, freeze)
+import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toMaybe)
 import DOM (DOM)
 import DOM.Node.Types (Element, HTMLCollection, ElementId)
@@ -27,3 +29,18 @@ namedItem :: forall eff. ElementId -> HTMLCollection -> Eff (dom :: DOM | eff) (
 namedItem id = map toMaybe <<< _namedItem id
 
 foreign import _namedItem :: forall eff. ElementId -> HTMLCollection -> Eff (dom :: DOM | eff) (Nullable Element)
+
+-- | The elements of an HTMLCollection represented in an array.
+toArray :: forall eff h. HTMLCollection -> Eff (dom :: DOM, st :: ST h | eff) (Array Element)
+toArray collection = do
+  result <- emptySTArray
+  len <- length collection
+
+  forE 0 len \i -> do
+    next <- item i collection
+
+    void $ case next of
+      Just elem -> pushSTArray result elem
+      Nothing   -> pure 0
+
+  freeze result
