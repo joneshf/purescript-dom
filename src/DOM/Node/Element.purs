@@ -13,6 +13,8 @@ module DOM.Node.Element
   , setAttribute
   , getAttribute
   , removeAttribute
+  , matches
+  , closest
   , scrollTop
   , setScrollTop
   , scrollLeft
@@ -64,6 +66,9 @@ getAttribute attr = map toMaybe <<< _getAttribute attr
 
 foreign import _getAttribute :: forall eff. String -> Element -> Eff (dom :: DOM | eff) (Nullable String)
 foreign import removeAttribute :: forall eff. String -> Element -> Eff (dom :: DOM | eff) Unit
+
+foreign import matches :: forall eff. String -> Element -> Eff (dom :: DOM | eff) Boolean
+foreign import closest :: forall eff. String -> Element -> Eff (dom :: DOM | eff) (Nullable Element)
 
 foreign import scrollTop :: forall eff. Element -> Eff (dom :: DOM | eff) Number
 foreign import setScrollTop :: forall eff. Number -> Element -> Eff (dom :: DOM | eff) Unit
