@@ -41,4 +41,4 @@ foreign import dispatchEvent
   :: forall eff
    . Event
   -> EventTarget
-  -> Eff (dom :: DOM, err :: EXCEPTION | eff) Boolean
+  -> Eff (dom :: DOM, exception :: EXCEPTION | eff) Boolean
