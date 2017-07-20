@@ -218,7 +218,7 @@ exports.getBoundingClientRect = function (el) {
       left: rect.left,
       width: rect.width,
       height: rect.height
-    }
+    };
   };
 };
 
