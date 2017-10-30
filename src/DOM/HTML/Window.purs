@@ -1,5 +1,6 @@
 module DOM.HTML.Window
   ( document
+  , document'
   , navigator
   , location
   , history
@@ -36,12 +37,14 @@ module DOM.HTML.Window
 
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
-import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, WINDOW, Window, URL)
+import DOM.HTML (window)
+import DOM.Node.Types (Document)
+import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, URL, WINDOW, Window, htmlDocumentToDocument)
 import DOM.WebStorage.Types (Storage)
 import Data.Maybe (Maybe)
-import Data.Nullable (Nullable, toMaybe)
 import Data.Newtype (class Newtype, unwrap)
-import Prelude (class Eq, class Ord, Unit, (<$>), (<<<), map)
+import Data.Nullable (Nullable, toMaybe)
+import Prelude (class Eq, class Ord, Unit, (<$>), (<<<), (>>=), map)
 
 foreign import document :: forall eff. Window -> Eff (dom :: DOM | eff) HTMLDocument
 
@@ -64,6 +67,9 @@ foreign import confirm :: forall eff. String -> Window -> Eff (confirm :: CONFIR
 foreign import moveBy :: forall eff. Int -> Int -> Window -> Eff (window :: WINDOW | eff) Unit
 
 foreign import moveTo :: forall eff. Int -> Int -> Window -> Eff (window :: WINDOW | eff) Unit
+
+document' :: forall eff. Eff (dom :: DOM | eff) Document
+document' = htmlDocumentToDocument <$> (window >>= document)
 
 open :: forall eff. String -> String -> String -> Window -> Eff (window :: WINDOW | eff) (Maybe Window)
 open url' name features window = toMaybe <$> _open url' name features window
