@@ -8,7 +8,7 @@ exports.mutationObserver = function (cb) {
   };
 };
 
-exports.observe = function (node) {
+exports._observe = function (node) {
   return function (config) {
     return function (mo) {
       return function () {

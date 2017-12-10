@@ -1,6 +1,6 @@
 module DOM.Node.MutationObserver
   ( MutationObserver
-  , MutationObserverInit
+  , MutationObserverInitFields
   , mutationObserver
   , observe
   , disconnect
@@ -16,22 +16,31 @@ import DOM.Node.Types (Node)
 
 foreign import data MutationObserver :: Type
 
-type MutationObserverInit =
-  { childList :: Boolean
+type MutationObserverInitFields =
+  ( childList :: Boolean
   , attributes :: Boolean
   , characterData :: Boolean
   , subtree :: Boolean
   , attributeOldValue :: Boolean
   , characterDataOldValue :: Boolean
   , attributeFilter :: Array String
-  }
+  )
 
 foreign import mutationObserver
   :: forall eff
    . (MutationRecord -> MutationObserver -> Eff (dom :: DOM | eff) Unit)
   -> Eff (dom :: DOM | eff) MutationObserver
 
-foreign import observe :: forall eff. Node -> MutationObserverInit -> MutationObserver -> Eff (dom :: DOM | eff) Unit
+foreign import _observe :: forall eff r. Node -> Record r -> MutationObserver -> Eff (dom :: DOM | eff) Unit
+
+observe
+  :: forall eff r rx
+   . Union r rx MutationObserverInitFields
+  => Node
+  -> Record r
+  -> MutationObserver
+  -> Eff (dom :: DOM | eff) Unit
+observe = _observe
 
 foreign import disconnect :: forall eff. MutationObserver -> Eff (dom :: DOM | eff) Unit
 
