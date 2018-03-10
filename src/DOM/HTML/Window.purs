@@ -36,7 +36,7 @@ module DOM.HTML.Window
 
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
-import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, WINDOW, Window, URL)
+import DOM.HTML.Types (ALERT, CONFIRM, HISTORY, HTMLDocument, History, Location, Navigator, PROMPT, SELECTION, Selection, WINDOW, Window, URL)
 import DOM.WebStorage.Types (Storage)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
@@ -143,3 +143,5 @@ foreign import _cancelIdleCallback :: forall eff. Int -> Window -> Eff (dom :: D
 
 cancelIdleCallback :: forall eff. RequestIdleCallbackId -> Window -> Eff (dom :: DOM | eff) Unit
 cancelIdleCallback idAF = _cancelIdleCallback (unwrap idAF)
+
+foreign import getSelection :: forall eff. Window -> Eff (selection :: SELECTION | eff) Selection

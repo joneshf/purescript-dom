@@ -235,3 +235,9 @@ exports._cancelIdleCallback = function(id) {
     };
   };
 };
+
+exports.getSelection = function (window) {
+  return function () {
+    return window.getSelection();
+  };
+};
