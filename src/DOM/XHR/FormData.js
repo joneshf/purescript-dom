@@ -5,22 +5,12 @@ exports.newFormData = function () {
   return new FormData();
 };
 
-exports.appendString = function (form) {
-  return function (key) {
-    return function (val) {
-      form.append(key, val);
-      return {};
-    };
-  };
+exports.appendStringImpl = function (form, key, val) {
+  form.append(key, val);
+  return {};
 };
 
-exports.appendWithName = function (form) {
-  return function (key) {
-    return function (val) {
-      return function (name) {
-        form.append(key, val, name);
-        return {};
-      };
-    };
-  };
+exports.appendWithNameImpl = function (form, key, val, name) {
+  form.append(key, val, name);
+  return {};
 };
