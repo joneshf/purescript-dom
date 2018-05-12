@@ -24,7 +24,7 @@ module DOM.Event.TouchEvent
 import Prelude
 import DOM.Event.Types (Event, EventTarget, TouchEvent, readTouchEvent)
 import DOM.Event.Types (TouchEvent, touchEventToEvent, readTouchEvent) as T
-import Data.Foreign (F, toForeign)
+import Foreign (F, toForeign)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 

@@ -5,7 +5,7 @@ module DOM.Event.FocusEvent
   ) where
 
 import Prelude
-import Data.Foreign (F, toForeign)
+import Foreign (F, toForeign)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import DOM.Event.Types (Event, EventTarget, FocusEvent, readFocusEvent)

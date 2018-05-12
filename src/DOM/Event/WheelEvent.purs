@@ -13,7 +13,7 @@ module DOM.Event.WheelEvent
 
 import Prelude
 import Data.Enum (class BoundedEnum, class Enum, Cardinality(..), defaultPred, defaultSucc, toEnum)
-import Data.Foreign (F, toForeign)
+import Foreign (F, toForeign)
 import Data.Maybe (Maybe(..), fromJust)
 import DOM.Event.Types (Event, WheelEvent, readWheelEvent)
 import DOM.Event.Types (WheelEvent, readWheelEvent, wheelEventToEvent) as T

@@ -44,7 +44,7 @@ module DOM.Event.Types
 import Prelude
 import Data.Bifunctor (lmap)
 import Data.Either (Either(..))
-import Data.Foreign (F, Foreign, ForeignError(ForeignError), unsafeReadTagged)
+import Foreign (F, Foreign, ForeignError(ForeignError), unsafeReadTagged)
 import Data.Newtype (class Newtype, wrap)
 import Unsafe.Coerce as U
 

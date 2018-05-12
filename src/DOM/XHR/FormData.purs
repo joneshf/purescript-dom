@@ -13,7 +13,7 @@ data FormDataValue =
 	| FormDataBlob String Blob -- ^ Blob name and `Blob` object.
 
 -- | Convert an associated array of keys and values to a `FormData`. 
-toFormData :: forall f . (Foldable f) => f (Tuple String FormDataValue) -> FormData
+toFormData :: forall f. (Foldable f) => f (Tuple String FormDataValue) -> FormData
 toFormData dat =
 	let form = newFormData unit in
 	let _unit = foldMap (appendData form) dat in

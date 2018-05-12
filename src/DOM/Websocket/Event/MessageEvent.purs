@@ -1,6 +1,6 @@
 module DOM.Websocket.Event.MessageEvent where
 
-import Data.Foreign (Foreign)
+import Foreign (Foreign)
 import DOM.Websocket.Event.Types (MessageEvent)
 
 foreign import data_ :: MessageEvent -> Foreign

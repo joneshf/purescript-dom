@@ -5,11 +5,6 @@ module DOM.HTML.Types
   , History
   , URL
   , Window
-  , ALERT
-  , CONFIRM
-  , HISTORY
-  , PROMPT
-  , WINDOW
   , windowToEventTarget
   , HTMLDocument
   , htmlDocumentToDocument
@@ -217,10 +212,9 @@ module DOM.HTML.Types
   ) where
 
 import Prelude
-import Control.Monad.Eff (kind Effect)
 import Control.Monad.Except.Trans (except)
 import Data.Either (Either(..))
-import Data.Foreign (Foreign, F, ForeignError(..), unsafeReadTagged)
+import Foreign (Foreign, F, ForeignError(..), unsafeReadTagged)
 import DOM.Event.Types (EventTarget)
 import DOM.Node.Types (Node, NonDocumentTypeChildNode, ParentNode, Element, NonElementParentNode, Document)
 
@@ -236,15 +230,10 @@ foreign import data History :: Type
 
 foreign import data URL :: Type
 
-foreign import data ALERT :: Effect
 
-foreign import data HISTORY :: Effect
 
-foreign import data PROMPT :: Effect
 
-foreign import data CONFIRM :: Effect
 
-foreign import data WINDOW :: Effect
 
 windowToEventTarget :: Window -> EventTarget
 windowToEventTarget = U.unsafeCoerce
