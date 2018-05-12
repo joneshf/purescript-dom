@@ -9,10 +9,10 @@ module DOM.Node.MutationObserver
 
 import Prelude
 
-import Control.Monad.Eff (Eff, kind Effect)
-import DOM (DOM)
+import Effect (Effect)
 import DOM.Node.MutationRecord (MutationRecord)
 import DOM.Node.Types (Node)
+import Prim.Row as Row
 
 foreign import data MutationObserver :: Type
 
@@ -27,21 +27,20 @@ type MutationObserverInitFields =
   )
 
 foreign import mutationObserver
-  :: forall eff
-   . (MutationRecord -> MutationObserver -> Eff (dom :: DOM | eff) Unit)
-  -> Eff (dom :: DOM | eff) MutationObserver
+  :: (MutationRecord -> MutationObserver -> Effect Unit)
+  -> Effect MutationObserver
 
-foreign import _observe :: forall eff r. Node -> Record r -> MutationObserver -> Eff (dom :: DOM | eff) Unit
+foreign import _observe :: forall r. Node -> Record r -> MutationObserver -> Effect Unit
 
 observe
-  :: forall eff r rx
-   . Union r rx MutationObserverInitFields
+  :: forall r rx
+   . Row.Union r rx MutationObserverInitFields
   => Node
   -> Record r
   -> MutationObserver
-  -> Eff (dom :: DOM | eff) Unit
+  -> Effect Unit
 observe = _observe
 
-foreign import disconnect :: forall eff. MutationObserver -> Eff (dom :: DOM | eff) Unit
+foreign import disconnect :: MutationObserver -> Effect Unit
 
-foreign import takeRecords :: forall eff. MutationObserver -> Eff (dom :: DOM | eff) (Array MutationRecord)
+foreign import takeRecords :: MutationObserver -> Effect (Array MutationRecord)

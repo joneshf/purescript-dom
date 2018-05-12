@@ -2,24 +2,23 @@ module Test.DOM.Node.DOMTokenList where
 
 import Prelude
 
-import Control.Monad.Eff.Class (liftEff)
-import DOM (DOM)
 import DOM.HTML (window)
 import DOM.HTML.Document (body)
 import DOM.HTML.HTMLElement (classList, className, setClassName)
 import DOM.HTML.Window (document)
 import DOM.Node.ClassList as CL
 import Data.Maybe (Maybe(..), fromMaybe)
+import Effect.Class (liftEffect)
 import Test.Unit (TestSuite, describe, it)
 import Test.Unit.Assert (shouldEqual)
 
-domTokenListTests :: forall eff. TestSuite (dom :: DOM | eff)
+domTokenListTests :: TestSuite
 domTokenListTests = do
   describe "DOMTokenList of classList" do
     it "contains a token" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b c" body''
           list <- classList body''
           CL.contains list "a"
@@ -27,9 +26,9 @@ domTokenListTests = do
       result `shouldEqual` true
 
     it "adds a token" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           -- clear class names, first
           _ <- setClassName "" body''
           list <- classList body''
@@ -39,9 +38,9 @@ domTokenListTests = do
       result `shouldEqual` "a"
 
     it "removes a token" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b c" body''
           list <- classList body''
           _ <- CL.remove list "b"
@@ -54,9 +53,9 @@ domTokenListTests = do
       result `shouldEqual` true
 
     it "toggles a token by removing its value" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b c" body''
           list <- classList body''
           _ <- CL.toggle list "c"
@@ -65,9 +64,9 @@ domTokenListTests = do
       result `shouldEqual` "a b"
 
     it "toggles a token by adding its value" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b" body''
           list <- classList body''
           _ <- CL.toggle list "c"
@@ -76,9 +75,9 @@ domTokenListTests = do
       result `shouldEqual` "a b c"
 
     it "toggles a token by forcing to add its value" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b" body''
           list <- classList body''
           _ <- CL.toggleForce list "c" true
@@ -87,9 +86,9 @@ domTokenListTests = do
       result `shouldEqual` "a b c"
 
     it "toggles a token by forcing to add (but not to remove) its value" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b c" body''
           list <- classList body''
           _ <- CL.toggleForce list "c" true
@@ -98,9 +97,9 @@ domTokenListTests = do
       result `shouldEqual` "a b c"
 
     it "toggles a token by forcing to remove its value" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b c" body''
           list <- classList body''
           _ <- CL.toggleForce list "c" false
@@ -109,9 +108,9 @@ domTokenListTests = do
       result `shouldEqual` "a b"
 
     it "toggles a token by forcing to remove (but not to add) its value" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b" body''
           list <- classList body''
           _ <- CL.toggleForce list "c" false
@@ -120,9 +119,9 @@ domTokenListTests = do
       result `shouldEqual` "a b"
 
     it "returns an item if available" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b c" body''
           list <- classList body''
           CL.item list 2
@@ -130,9 +129,9 @@ domTokenListTests = do
       (fromMaybe "not found" result) `shouldEqual` "c"
 
     it "returns not an item if it's not available" do
-      body' <- liftEff $ window >>= document >>= body
+      body' <- liftEffect $ window >>= document >>= body
       result <- case body' of
-        Just body'' -> liftEff do
+        Just body'' -> liftEffect do
           _ <- setClassName "a b c" body''
           list <- classList body''
           CL.item list 5

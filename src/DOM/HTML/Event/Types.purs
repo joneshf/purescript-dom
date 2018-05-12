@@ -10,7 +10,7 @@ module DOM.HTML.Event.Types
   , readHashChangeEvent
   ) where
 
-import Data.Foreign (Foreign, F, unsafeReadTagged)
+import Foreign (Foreign, F, unsafeReadTagged)
 import DOM.Event.Types (Event)
 import Unsafe.Coerce as U
 

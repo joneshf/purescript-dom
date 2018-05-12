@@ -5,7 +5,7 @@ module DOM.Event.CompositionEvent
   ) where
 
 import Prelude
-import Data.Foreign (F, toForeign)
+import Foreign (F, toForeign)
 import DOM.Event.Types (CompositionEvent, Event, readCompositionEvent)
 import DOM.Event.Types (CompositionEvent, compositionEventToEvent, readCompositionEvent) as T
 

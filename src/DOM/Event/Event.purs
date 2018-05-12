@@ -4,10 +4,9 @@ module DOM.Event.Event
   ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import Data.Enum (toEnum)
 import Data.Maybe (fromJust)
-import DOM (DOM)
 import DOM.Event.EventPhase (EventPhase)
 import DOM.Event.Types (Event, EventType)
 import DOM.Event.Types (Event) as T
@@ -33,16 +32,14 @@ foreign import eventPhaseIndex :: Event -> Int
 -- | Prevents the event from bubbling up to futher event listeners. Other event
 -- | listeners on the current target will still fire.
 foreign import stopPropagation
-  :: forall eff
-   . Event
-  -> Eff (dom :: DOM | eff) Unit
+  :: Event
+  -> Effect Unit
 
 -- | Prevents all other listeners for the event from being called. This includes
 -- | event listeners added to the current target after the current listener.
 foreign import stopImmediatePropagation
-  :: forall eff
-   . Event
-  -> Eff (dom :: DOM | eff) Unit
+  :: Event
+  -> Effect Unit
 
 -- | Indicates whether the event will bubble up through the DOM or not.
 foreign import bubbles :: Event -> Boolean
@@ -52,9 +49,8 @@ foreign import cancelable :: Event -> Boolean
 
 -- | Cancels the event if it can be cancelled.
 foreign import preventDefault
-  :: forall eff
-   . Event
-  -> Eff (dom :: DOM | eff) Unit
+  :: Event
+  -> Effect Unit
 
 -- | Indicates whether `preventDefault` was called on the event.
 foreign import defaultPrevented :: Event -> Boolean
