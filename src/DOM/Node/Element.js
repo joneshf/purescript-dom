@@ -101,6 +101,40 @@ exports.removeAttribute = function (name) {
   };
 };
 
+// `matches` polyfill (https://caniuse.com/#feat=matchesselector)
+if (typeof Element.prototype.matches !== "function") {
+  Element.prototype.matches =
+    Element.prototype.msMatchesSelector
+      || Element.prototype.webkitMatchesSelector
+      || Element.prototype.oMatchesSelector
+      || Element.prototype.mozMatchesSelector;
+}
+
+exports.matches = function (selector) {
+  return function (element) {
+    return element.matches(selector);
+  }
+}
+
+// `closest` polyfill (https://caniuse.com/#feat=element-closest)
+if (typeof Element.prototype.closest !== "function") {
+  Element.prototype.closest = function closest(selector) {
+    return (function searchUpTree(selector, element) {
+      return element == null
+         ? null
+         : element.matches(selector)
+           ? element
+           : searchUpTree(selector, element.parentElement);
+    }(selector, this));
+  }
+}
+
+exports.closest = function (selector) {
+  return function (element) {
+    return element.closest(selector);
+  }
+}
+
 // - CSSOM ---------------------------------------------------------------------
 
 exports.scrollTop = function (node) {
