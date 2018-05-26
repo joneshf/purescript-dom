@@ -5,7 +5,7 @@ module DOM.Websocket.Types
 
 import Prelude
 
-import Data.Foreign (F, Foreign, unsafeReadTagged)
+import Foreign (F, Foreign, unsafeReadTagged)
 import Data.Newtype (class Newtype)
 
 import DOM.Event.Types (EventTarget)

@@ -18,16 +18,16 @@ module DOM.Event.MouseEvent
   ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Data.Foreign (F, toForeign)
+import Effect (Effect)
+import Foreign (F, unsafeToForeign)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
-import DOM (DOM)
+
 import DOM.Event.Types (Event, EventTarget, MouseEvent, readMouseEvent)
 import DOM.Event.Types (MouseEvent, mouseEventToEvent, readMouseEvent) as T
 
 eventToMouseEvent :: Event -> F MouseEvent
-eventToMouseEvent = readMouseEvent <<< toForeign
+eventToMouseEvent = readMouseEvent <<< unsafeToForeign
 
 foreign import screenX :: MouseEvent -> Int
 
@@ -62,4 +62,4 @@ foreign import getModifierState
   :: forall eff
    . String
   -> MouseEvent
-  -> Eff (dom :: DOM | eff) Boolean
+  -> Effect Boolean

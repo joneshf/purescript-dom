@@ -1,7 +1,7 @@
 module DOM.File.Types where
 
 import DOM.Event.Types (EventTarget)
-import Data.Foreign (Foreign, F, unsafeReadTagged)
+import Foreign (Foreign, F, unsafeReadTagged)
 import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data Blob :: Type

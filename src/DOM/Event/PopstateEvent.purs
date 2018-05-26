@@ -3,8 +3,8 @@ module DOM.Event.PopstateEvent
   ) where
 
 import DOM.Event.Types (Event, PopStateEvent, readPopStateEvent)
-import Data.Foreign (F, toForeign)
+import Foreign (F, unsafeToForeign)
 import Prelude ((<<<))
 
 eventToPopStateEvent :: Event -> F PopStateEvent
-eventToPopStateEvent = readPopStateEvent <<< toForeign
+eventToPopStateEvent = readPopStateEvent <<< unsafeToForeign

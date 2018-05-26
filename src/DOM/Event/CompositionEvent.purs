@@ -5,11 +5,11 @@ module DOM.Event.CompositionEvent
   ) where
 
 import Prelude
-import Data.Foreign (F, toForeign)
+import Foreign (F, unsafeToForeign)
 import DOM.Event.Types (CompositionEvent, Event, readCompositionEvent)
 import DOM.Event.Types (CompositionEvent, compositionEventToEvent, readCompositionEvent) as T
 
 eventToCompositionEvent :: Event -> F CompositionEvent
-eventToCompositionEvent = readCompositionEvent <<< toForeign
+eventToCompositionEvent = readCompositionEvent <<< unsafeToForeign
 
 foreign import data_ :: CompositionEvent -> String
