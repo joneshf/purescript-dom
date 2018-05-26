@@ -11,8 +11,8 @@ module DOM.HTML.Event.DataTransfer
 
 import Prelude
 
-import Control.Monad.Eff (Eff)
-import DOM (DOM)
+import Effect (Effect)
+
 import DOM.File.Types (FileList)
 import Data.Maybe (Maybe)
 import Data.MediaType (MediaType(..))
@@ -40,12 +40,12 @@ foreign import getDataImpl
   :: forall eff
    . String
   -> DataTransfer
-  -> Eff (dom :: DOM | eff) String
+  -> Effect String
 
 -- | Retrieves the data for a given media type, or an empty string if data for
 -- | that type does not exist or the data transfer object contains no data.
 getData
-  :: forall eff. MediaType -> DataTransfer -> Eff (dom :: DOM | eff) String
+  :: MediaType -> DataTransfer -> Effect String
 getData (MediaType format) dt = getDataImpl format dt
 
 foreign import setDataImpl
@@ -53,7 +53,7 @@ foreign import setDataImpl
    . String
   -> String
   -> DataTransfer
-  -> Eff (dom :: DOM | eff) Unit
+  -> Effect Unit
 
 -- | Sets the data transfer object's data for a given media format.
 -- |
@@ -65,10 +65,10 @@ setData
    . MediaType
   -> String
   -> DataTransfer
-  -> Eff (dom :: DOM | eff) Unit
+  -> Effect Unit
 setData (MediaType format) dat dt = setDataImpl format dat dt
 
-foreign import dropEffectImpl :: forall eff. DataTransfer -> Eff (dom :: DOM | eff) String
+foreign import dropEffectImpl :: DataTransfer -> Effect String
 
 data DropEffect = Copy | Link | Move | None
 
@@ -76,7 +76,7 @@ derive instance eqDropEffect :: Eq DropEffect
 derive instance ordDropEffect :: Ord DropEffect
 
 --| Gets the data transfer object's drop effect.
-dropEffect :: forall eff. DataTransfer -> Eff (dom :: DOM | eff) DropEffect
+dropEffect :: DataTransfer -> Effect DropEffect
 dropEffect dt = do
   de <- dropEffectImpl dt
   pure $ unsafePartial $ case de of
@@ -86,10 +86,10 @@ dropEffect dt = do
     "none" -> None
     _ -> crashWith "Impossible according to https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect"
 
-foreign import setDropEffectImpl :: forall eff. String -> DataTransfer -> Eff (dom :: DOM | eff) Unit
+foreign import setDropEffectImpl :: String -> DataTransfer -> Effect Unit
 
 --| Sets the data transfer object's drop effect.
-setDropEffect :: forall eff. DropEffect -> DataTransfer -> Eff (dom :: DOM | eff) Unit
+setDropEffect :: DropEffect -> DataTransfer -> Effect Unit
 setDropEffect de = setDropEffectImpl case de of
   Copy -> "copy"
   Link -> "link"

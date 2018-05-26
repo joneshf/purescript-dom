@@ -24,7 +24,7 @@ module DOM.Event.TouchEvent
 import Prelude
 import DOM.Event.Types (Event, EventTarget, TouchEvent, readTouchEvent)
 import DOM.Event.Types (TouchEvent, touchEventToEvent, readTouchEvent) as T
-import Data.Foreign (F, toForeign)
+import Foreign (F, unsafeToForeign)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 
@@ -57,7 +57,7 @@ item :: Int -> TouchList -> Maybe Touch
 item i = toMaybe <<< _item i
 
 eventToTouchEvent :: Event -> F TouchEvent
-eventToTouchEvent = readTouchEvent <<< toForeign
+eventToTouchEvent = readTouchEvent <<< unsafeToForeign
 
 foreign import touches :: TouchEvent -> TouchList
 

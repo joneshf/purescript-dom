@@ -3,7 +3,7 @@ module DOM.Node.Types where
 
 import Prelude
 
-import Data.Foreign (F, Foreign)
+import Foreign (F, Foreign)
 import Data.Newtype (class Newtype)
 
 import DOM.Event.Types (EventTarget)

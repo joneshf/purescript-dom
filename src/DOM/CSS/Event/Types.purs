@@ -4,7 +4,7 @@ module DOM.CSS.Event.Types
   , readTransitionEvent
   ) where
 
-import Data.Foreign (Foreign, F, unsafeReadTagged)
+import Foreign (Foreign, F, unsafeReadTagged)
 import DOM.Event.Types (Event)
 import Unsafe.Coerce as U
 

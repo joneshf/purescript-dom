@@ -2,45 +2,45 @@ module DOM.HTML.HTMLTrackElement where
 
 import Prelude (Unit, (<<<), map)
 
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 
 import Data.Enum (toEnum)
 import Data.Maybe (fromJust)
 
-import DOM (DOM)
+
 import DOM.HTML.HTMLTrackElement.ReadyState (ReadyState)
 import DOM.HTML.Types (HTMLTrackElement)
 
 foreign import kind :: forall eff.
-  HTMLTrackElement -> Eff (dom :: DOM | eff) String
+  HTMLTrackElement -> Effect String
 foreign import setKind :: forall eff.
-  String -> HTMLTrackElement -> Eff (dom :: DOM | eff) Unit
+  String -> HTMLTrackElement -> Effect Unit
 
 foreign import src :: forall eff.
-  HTMLTrackElement -> Eff (dom :: DOM | eff) String
+  HTMLTrackElement -> Effect String
 foreign import setSrc :: forall eff.
-  String -> HTMLTrackElement -> Eff (dom :: DOM | eff) Unit
+  String -> HTMLTrackElement -> Effect Unit
 
 foreign import srclang :: forall eff.
-  HTMLTrackElement -> Eff (dom :: DOM | eff) String
+  HTMLTrackElement -> Effect String
 foreign import setSrclang :: forall eff.
-  String -> HTMLTrackElement -> Eff (dom :: DOM | eff) Unit
+  String -> HTMLTrackElement -> Effect Unit
 
 foreign import label :: forall eff.
-  HTMLTrackElement -> Eff (dom :: DOM | eff) String
+  HTMLTrackElement -> Effect String
 foreign import setLabel :: forall eff.
-  String -> HTMLTrackElement -> Eff (dom :: DOM | eff) Unit
+  String -> HTMLTrackElement -> Effect Unit
 
 foreign import default :: forall eff.
-  HTMLTrackElement -> Eff (dom :: DOM | eff) Boolean
+  HTMLTrackElement -> Effect Boolean
 foreign import setDefault :: forall eff.
-  Boolean -> HTMLTrackElement -> Eff (dom :: DOM | eff) Unit
+  Boolean -> HTMLTrackElement -> Effect Unit
 
 readyState :: forall eff.
   Partial =>
-  HTMLTrackElement -> Eff (dom :: DOM | eff) ReadyState
+  HTMLTrackElement -> Effect ReadyState
 readyState = map (fromJust <<< toEnum) <<< readyStateIndex
 
-foreign import readyStateIndex :: forall eff. HTMLTrackElement -> Eff (dom :: DOM | eff) Int
+foreign import readyStateIndex :: HTMLTrackElement -> Effect Int
 
 --   readonly attribute TextTrack track;

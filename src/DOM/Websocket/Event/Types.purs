@@ -1,6 +1,6 @@
 module DOM.Websocket.Event.Types where
 
-import Data.Foreign (Foreign, F, unsafeReadTagged)
+import Foreign (Foreign, F, unsafeReadTagged)
 import DOM.Event.Types (Event)
 import Unsafe.Coerce as U
 

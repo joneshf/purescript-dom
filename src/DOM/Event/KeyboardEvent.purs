@@ -32,16 +32,16 @@ module DOM.Event.KeyboardEvent
   ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import Data.Enum (class BoundedEnum, class Enum, Cardinality(..), defaultPred, defaultSucc, toEnum)
-import Data.Foreign (F, toForeign)
+import Foreign (F, unsafeToForeign)
 import Data.Maybe (Maybe(..), fromJust)
-import DOM (DOM)
+
 import DOM.Event.Types (Event, KeyboardEvent, readKeyboardEvent)
 import DOM.Event.Types (KeyboardEvent, keyboardEventToEvent, readKeyboardEvent) as T
 
 eventToKeyboardEvent :: Event -> F KeyboardEvent
-eventToKeyboardEvent = readKeyboardEvent <<< toForeign
+eventToKeyboardEvent = readKeyboardEvent <<< unsafeToForeign
 
 -- | A non-empty Unicode character string containing the printable representation
 -- | of the key, if available.
@@ -111,4 +111,4 @@ foreign import getModifierState
   :: forall eff
    . String
   -> KeyboardEvent
-  -> Eff (dom :: DOM | eff) Boolean
+  -> Effect Boolean

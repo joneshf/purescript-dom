@@ -5,7 +5,7 @@ import Prelude
 import Control.Monad.Except (except)
 
 import Data.Either (Either(..))
-import Data.Foreign (F, Foreign, ForeignError(..))
+import Foreign (F, Foreign, ForeignError(..))
 
 foreign import _unsafeReadProtoTagged
   :: forall n
